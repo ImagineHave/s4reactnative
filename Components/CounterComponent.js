@@ -100,11 +100,6 @@ export default class CounterApp extends Component {
                 
 
                 
-                    <Text> 
-                        { this.props.prayer }
-                    </Text>
-                
-
 
  
             </View>

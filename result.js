@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { TouchableHighlight, StyleSheet, View, Text, Button, TextInput, Image , Keyboard, TouchableWithoutFeedback, Dimensions} from 'react-native';
+import { connect } from 'react-redux';
+import {NavigationActions} from 'react-navigation';
+import axios from 'axios'
 
+import * as Actions from './Actions/ActionTypes';
 import RNShakeEvent from 'react-native-shake-event';
 
-export default class Result extends Component {
+class Result extends Component {
 
     
     constructor(props) {
@@ -11,9 +15,13 @@ export default class Result extends Component {
         
     }
 
+    componentDidMount() {
+        this.props.fetchPrayer(this.props.navigation.state.params.prayer);
+    }
+
     pray = () => {
-        this.props.navigation.navigate('Home')
-      }
+        this.props.navigation.dispatch(NavigationActions.back());
+    }
 
     
     render() {
@@ -52,10 +60,17 @@ export default class Result extends Component {
                 
                 
 
-                
-                    <Text> 
+                    <Image 
+                        source={require('./img/line.jpg')}
+                        style = {styles.line}
+                    /> 
+                    <Text style={styles.result}> 
                         { this.props.prayer }
                     </Text>
+                    <Image 
+                        source={require('./img/line.jpg')}
+                        style = {styles.line}
+                    /> 
 
 
                     <Button onPress={this.pray} title="Pray again">
@@ -120,6 +135,50 @@ const styles = StyleSheet.create({
     },
     line: {
         width: Dimensions.get('window').width - 40,
-        height: 5
+        height: 5,
+        marginLeft: 20,
+        marginRight: 20
+    },
+    result: {
+        marginTop:20,
+        marginBottom:20,
+        marginLeft: 20,
+        marginRight: 20,
+        fontSize: 25,
+        backgroundColor: 'rgba(0,0,0,0)'
     }
 });
+
+const mapStateToProps = (state) => ({
+    prayer: state.counterReducer.prayer,
+    prayerLoading: state.counterReducer.prayerLoading
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    increment: () => dispatch({type: Actions.COUNTER_INCREMENT}),
+    decrement: () => dispatch({type: Actions.COUNTER_DECREMENT}),
+    
+    fetchPrayer: (text) => dispatch({
+        type: Actions.FETCH_PRAYER, 
+        payload: 
+             axios({
+                method: 'post',
+                url: 'https://django4j.imagine-have.xyz/s4j/p/',
+                data: {
+                    prayer: text
+                },
+                timeout: 5000
+            }).then(function(response) {
+                console.log(response)
+                dispatch({
+                    type: Actions.RECEIVE_PRAYER, 
+                    payload: response.data.answer.passage
+                });
+            }).catch(function(error) {
+                console.log(error);
+            })
+        
+    }),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Result)

@@ -20,4 +20,4 @@ import Result from './result';
 export default StackNavigator({
   Home: { screen: CounterAction },
   Result: { screen: Result },
-}, { headerMode: 'none' } );
+}, { headerMode: 'none', mode: 'modal', } );
