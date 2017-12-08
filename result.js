@@ -3,34 +3,19 @@ import { TouchableHighlight, StyleSheet, View, Text, Button, TextInput, Image , 
 
 import RNShakeEvent from 'react-native-shake-event';
 
-export default class CounterApp extends Component {
+export default class Result extends Component {
 
     
     constructor(props) {
         super(props);
-        this.state = { text: 'Useless Placeholder' };
+        
     }
 
-    componentWillMount() {
-        RNShakeEvent.addEventListener('shake', () => {
-            this.pray();
-        });
-      }
-     
-      componentWillUnmount() {
-        RNShakeEvent.removeEventListener('shake');
-      }
-
     pray = () => {
-        this.props.navigation.navigate('Result', { prayer: this.state.text })
+        this.props.navigation.navigate('Home')
       }
-
-    randomText =  "asdgasdgasd";
 
     
-
-    randomText = this.prayer ? this.prayer.data.answer.passage : "none"
-
     render() {
 
 
@@ -42,7 +27,7 @@ export default class CounterApp extends Component {
         var images = [];
 
         for (i = 0; i < numberOfBackgroundImages; i++) {
-            images.push(<Image key={i} source={require('../img/bg.jpg')} style = { styles.backgroundImage } />)
+            images.push(<Image key={i} source={require('./img/bg.jpg')} style = { styles.backgroundImage } />)
         }
 
 
@@ -59,50 +44,24 @@ export default class CounterApp extends Component {
 
                 <Image
                     style = { styles.crossImg }
-                    source={require('../img/cross.png')}
+                    source={require('./img/cross.png')}
                 />
 
-                <TextInput
-                    style={
-                        {
-                            height: 200, 
-                            width: Dimensions.get('window').width - 40, 
-                            borderColor: 'gray', borderWidth: 1, 
-                            backgroundColor: 'rgba(255,255,255,0.25)', 
-                            borderColor: 'rgba(255,255,255,0.25)',
-                            textAlignVertical: 'top',
-                            paddingTop: 10,
-                            paddingLeft: 10,
-                            paddingRight: 10,
-                            paddingBottom: 10
-                            
-                        }
-                    }
-                    onChangeText={(text) => this.setState({text})
-                }
-                    value={this.state.text}
-                    underlineColorAndroid="transparent"
-                    fontSize={18}
-                    multiline = {true}
-                />
+                
 
-                <Image 
-                    style = { styles.line } 
-                    source={require('../img/line.jpg')}
-                />
-
-                <TouchableHighlight onPress={this.pray}>
-                    <Image
-                    source={require('../img/s4j.png')}
-                    style = { styles.s4j } />
-                </TouchableHighlight>
-
+                
                 
 
                 
                     <Text> 
                         { this.props.prayer }
                     </Text>
+
+
+                    <Button onPress={this.pray} title="Pray again">
+                   
+                </Button>
+
                 
 
 
