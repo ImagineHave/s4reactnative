@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { TouchableHighlight, StyleSheet, View, Text, Button, TextInput, Image , Keyboard, TouchableWithoutFeedback, Dimensions} from 'react-native';
+
+import * as actions from '../actions';
 import { connect } from 'react-redux';
+
 import {NavigationActions} from 'react-navigation';
-import axios from 'axios'
 
-import * as Actions from './Actions/ActionTypes';
-import RNShakeEvent from 'react-native-shake-event';
-
-class Result extends Component {
+class ResultComponent extends Component {
 
     
     constructor(props) {
@@ -16,10 +15,10 @@ class Result extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchPrayer(this.props.navigation.state.params.prayer);
+        console.log(this.props.navigation.state.params.prayerText)
     }
 
-    pray = () => {
+    backButton = () => {
         this.props.navigation.dispatch(NavigationActions.back());
     }
 
@@ -35,7 +34,7 @@ class Result extends Component {
         var images = [];
 
         for (i = 0; i < numberOfBackgroundImages; i++) {
-            images.push(<Image key={i} source={require('./img/bg.jpg')} style = { styles.backgroundImage } />)
+            images.push(<Image key={i} source={require('../img/bg.jpg')} style = { styles.backgroundImage } />)
         }
 
 
@@ -52,7 +51,7 @@ class Result extends Component {
 
                 <Image
                     style = { styles.crossImg }
-                    source={require('./img/cross.png')}
+                    source={require('../img/cross.png')}
                 />
 
                 
@@ -61,19 +60,19 @@ class Result extends Component {
                 
 
                     <Image 
-                        source={require('./img/line.jpg')}
+                        source={require('../img/line.jpg')}
                         style = {styles.line}
                     /> 
                     <Text style={styles.result}> 
                         { this.props.prayer }
                     </Text>
                     <Image 
-                        source={require('./img/line.jpg')}
+                        source={require('../img/line.jpg')}
                         style = {styles.line}
                     /> 
 
 
-                    <Button onPress={this.pray} title="Pray again">
+                    <Button style = { styles.backButton } onPress={this.backButton} title="Pray again">
                    
                 </Button>
 
@@ -146,39 +145,15 @@ const styles = StyleSheet.create({
         marginRight: 20,
         fontSize: 25,
         backgroundColor: 'rgba(0,0,0,0)'
+    },
+    backButton: {
+        marginTop: 40
     }
 });
 
-const mapStateToProps = (state) => ({
-    prayer: state.counterReducer.prayer,
-    prayerLoading: state.counterReducer.prayerLoading
-});
 
-const mapDispatchToProps = (dispatch) => ({
-    increment: () => dispatch({type: Actions.COUNTER_INCREMENT}),
-    decrement: () => dispatch({type: Actions.COUNTER_DECREMENT}),
-    
-    fetchPrayer: (text) => dispatch({
-        type: Actions.FETCH_PRAYER, 
-        payload: 
-             axios({
-                method: 'post',
-                url: 'https://django4j.imagine-have.xyz/s4j/p/',
-                data: {
-                    prayer: text
-                },
-                timeout: 5000
-            }).then(function(response) {
-                console.log(response)
-                dispatch({
-                    type: Actions.RECEIVE_PRAYER, 
-                    payload: response.data.answer.passage
-                });
-            }).catch(function(error) {
-                console.log(error);
-            })
-        
-    }),
-});
+function mapStateToProps(state) {
+    return { prayer: state.prayer };
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(Result)
+export default connect(mapStateToProps, actions)(ResultComponent);

@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { TouchableHighlight, StyleSheet, View, Text, Button, TextInput, Image , Keyboard, TouchableWithoutFeedback, Dimensions} from 'react-native';
 
+import * as actions from '../actions';
+import { connect } from 'react-redux';
+
 import RNShakeEvent from 'react-native-shake-event';
 
-export default class CounterApp extends Component {
+class PrayerComponent extends Component {
 
     
     constructor(props) {
         super(props);
-        this.state = { text: 'Useless Placeholder' };
+        this.state = { text: 'Enter your prayer and Shake For Jesus...' };
     }
 
     componentWillMount() {
@@ -21,8 +24,26 @@ export default class CounterApp extends Component {
         RNShakeEvent.removeEventListener('shake');
       }
 
+    onFocus() {
+        if (this.state.text == "Enter your prayer and Shake For Jesus...") {
+            this.setState({
+                text: ''
+            });
+        }
+        
+    }
+
+    onDefocus() {
+        if (this.state.text == "") {
+            this.setState({
+               text: "Enter your prayer and Shake For Jesus..." 
+            });
+        }
+    }
+
     pray = () => {
-        this.props.navigation.navigate('Result', { prayer: this.state.text })
+        this.props.requestPrayer()
+        this.props.navigation.navigate('Result', { prayerText: this.state.text })
       }
 
     randomText =  "asdgasdgasd";
@@ -63,6 +84,8 @@ export default class CounterApp extends Component {
                 />
 
                 <TextInput
+                    onFocus={() => this.onFocus()}
+                    onBlur={() => this.onDefocus()}
                     style={
                         {
                             height: 200, 
@@ -79,6 +102,7 @@ export default class CounterApp extends Component {
                         }
                     }
                     onChangeText={(text) => this.setState({text})
+                    
                 }
                     value={this.state.text}
                     underlineColorAndroid="transparent"
@@ -159,3 +183,10 @@ const styles = StyleSheet.create({
         height: 5
     }
 });
+
+
+function mapStateToProps(state) {
+    return { prayer: state.prayer };
+}
+
+export default connect(mapStateToProps, actions)(PrayerComponent);

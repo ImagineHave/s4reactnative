@@ -1,34 +1,24 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
 
-import store from './Reducers/index';
-import CounterAction from './Actions/CounterAction';
+import reducers from './reducers';
 
-import RootNavigation from './rootnavigation';
+import RootNavigation from './components/root-navigation';
+import PrayerComponent from './components/prayer-component'
+
+const createStoreWithMiddleware = applyMiddleware()(createStore);
 
 export default class App extends Component {
   constructor(props) {
     super(props);
   }
-
-  
+ 
   render() {
     return(
-      <Provider store = {store}>
+      <Provider store = {createStoreWithMiddleware(reducers)}>
         <RootNavigation/>
       </Provider>
     );
   }
 }
-
-
-// import {
-//   StackNavigator,
-// } from 'react-navigation';
-// import Dummy from './dummy';
-// import Dummy2 from './dummy2';
-
-// export default StackNavigator({
-//   Home: { screen: Dummy },
-//   Profile: { screen: Dummy2 },
-// });

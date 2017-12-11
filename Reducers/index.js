@@ -1,17 +1,8 @@
-import { combineReducers, createStore, applyMiddleware } from 'redux';
-import promiseMiddleware from 'redux-promise';
+import { combineReducers } from 'redux';
+import prayerReducer from './prayer-reducer';
 
-import counterReducer from './CounterReducer';
+const rootReducer = combineReducers({
+  users: prayerReducer
+});
 
-const AppReducers = combineReducers({
-    counterReducer,
-})
-
-const rootReducer = (state, action) => {
-    return AppReducers(state, action);
-}
-
-let createStoreWithMiddleware = applyMiddleware()(createStore)
-
-const store = createStoreWithMiddleware(rootReducer)
-export default store;
+export default rootReducer;
