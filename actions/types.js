@@ -1,2 +1,3 @@
-export const FETCH_PRAYER = 'fetch_prayer';
-export const RECEIVE_PRAYER = 'receive_prayer';
+export const REQUEST_QUOTE = 'REQUEST_QUOTE';
+export const REQUEST_QUOTE_PENDING = 'REQUEST_QUOTE_PENDING'
+export const REQUEST_QUOTE_FULFILLED = 'REQUEST_QUOTE_FULFILLED';

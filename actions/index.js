@@ -1,7 +1,5 @@
 import axios from 'axios';
-import {
-    FETCH_PRAYER
-} from './types';
+import { REQUEST_QUOTE } from './types';
 
 export function requestPrayer(prayerText) {
   const request = axios({
@@ -13,7 +11,7 @@ export function requestPrayer(prayerText) {
                     timeout: 5000
                });
   return {
-    type: FETCH_PRAYER,
+    type: REQUEST_QUOTE,
     payload: request
   };
 }
