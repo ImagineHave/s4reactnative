@@ -3,12 +3,12 @@ import {
     FETCH_PRAYER
 } from './types';
 
-export function requestPrayer() {
+export function requestPrayer(prayerText) {
   const request = axios({
                     method: 'post',
                     url: 'https://django4j.imagine-have.xyz/s4j/p/',
                     data: {
-                        prayer: "bread water jesus" 
+                        prayer: prayerText
                     },
                     timeout: 5000
                });

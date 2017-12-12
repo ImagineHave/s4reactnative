@@ -42,7 +42,7 @@ class PrayerComponent extends Component {
     }
 
     pray = () => {
-        this.props.requestPrayer()
+        this.props.requestPrayer(this.state.text)
         this.props.navigation.navigate('Result', { prayerText: this.state.text })
       }
 
