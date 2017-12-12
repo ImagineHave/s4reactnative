@@ -4,10 +4,14 @@ import {
 } from './types';
 
 export function requestPrayer() {
-  const request = axios.get('http://jsonplaceholder.typicode.com/users');
-
-  console.log("prayer fired")
-
+  const request = axios({
+                    method: 'post',
+                    url: 'https://django4j.imagine-have.xyz/s4j/p/',
+                    data: {
+                        prayer: "bread water jesus" 
+                    },
+                    timeout: 5000
+               });
   return {
     type: FETCH_PRAYER,
     payload: request
