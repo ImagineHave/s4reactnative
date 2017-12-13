@@ -4,6 +4,8 @@ import { TouchableHighlight, StyleSheet, View, Text, Button, TextInput, Image , 
 import * as actions from '../actions';
 import { connect } from 'react-redux';
 
+import * as Animatable from 'react-native-animatable';
+
 import { Font } from 'expo';
 
 import RNShakeEvent from 'react-native-shake-event';
@@ -93,11 +95,13 @@ class PrayerComponent extends Component {
                 </View>
                 
 
+                <Animatable.View animation="slideInDown">
                 <Image
                     style = { styles.crossImg }
                     source={require('../img/cross.png')}
                 />
 
+                </Animatable.View>
                 
 {
     this.state.fontLoaded ? (
@@ -139,9 +143,17 @@ class PrayerComponent extends Component {
                 />
 
                 <TouchableHighlight onPress={this.pray}>
+                <Animatable.View 
+                    animation="pulse" 
+                    iterationCount="infinite"
+                    easing="linear"
+                >
                     <Image
                     source={require('../img/s4j.png')}
                     style = { styles.s4j } />
+                </Animatable.View>
+                    
+                    
                 </TouchableHighlight>
 
                 
