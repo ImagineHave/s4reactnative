@@ -4,14 +4,26 @@ import { TouchableHighlight, StyleSheet, View, Text, Button, TextInput, Image , 
 import * as actions from '../actions';
 import { connect } from 'react-redux';
 
+import { Font } from 'expo';
+
 import RNShakeEvent from 'react-native-shake-event';
 
 class PrayerComponent extends Component {
 
+    async componentDidMount() {
+        await Font.loadAsync({
+            'abel-regular': require('../fonts/Abel-Regular.ttf'),
+          });
+      
+          this.setState({ fontLoaded: true });
+    }
     
     constructor(props) {
         super(props);
-        this.state = { text: 'Enter your prayer and Shake For Jesus...' };
+        this.state = { 
+            text: 'Enter your prayer and Shake For Jesus...',
+            fontLoaded: false
+        };
     }
 
     componentWillMount() {
@@ -83,32 +95,40 @@ class PrayerComponent extends Component {
                     source={require('../img/cross.png')}
                 />
 
-                <TextInput
-                    onFocus={() => this.onFocus()}
-                    onBlur={() => this.onDefocus()}
-                    style={
-                        {
-                            height: 200, 
-                            width: Dimensions.get('window').width - 40, 
-                            borderColor: 'gray', borderWidth: 1, 
-                            backgroundColor: 'rgba(255,255,255,0.25)', 
-                            borderColor: 'rgba(255,255,255,0.25)',
-                            textAlignVertical: 'top',
-                            paddingTop: 10,
-                            paddingLeft: 10,
-                            paddingRight: 10,
-                            paddingBottom: 10
-                            
-                        }
-                    }
-                    onChangeText={(text) => this.setState({text})
-                    
-                }
-                    value={this.state.text}
-                    underlineColorAndroid="transparent"
-                    fontSize={18}
-                    multiline = {true}
-                />
+                
+{
+    this.state.fontLoaded ? (
+        <TextInput
+        onFocus={() => this.onFocus()}
+        onBlur={() => this.onDefocus()}
+        style={
+            {
+                height: 200, 
+                width: Dimensions.get('window').width - 40, 
+                color: '#2D58A6',
+                borderColor: 'gray', borderWidth: 1, 
+                backgroundColor: 'rgba(255,255,255,0.25)', 
+                borderColor: 'rgba(255,255,255,0.25)',
+                textAlignVertical: 'top',
+                paddingTop: 10,
+                paddingLeft: 10,
+                paddingRight: 10,
+                paddingBottom: 10,
+                fontFamily: 'abel-regular'
+                
+            }
+        }
+        onChangeText={(text) => this.setState({text})
+        
+    }
+        value={this.state.text}
+        underlineColorAndroid="transparent"
+        fontSize={18}
+        multiline = {true}
+    />
+    ) : null
+  }
+                
 
                 <Image 
                     style = { styles.line } 

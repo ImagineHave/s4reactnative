@@ -4,19 +4,27 @@ import { TouchableHighlight, StyleSheet, View, Text, Button, TextInput, Image , 
 import * as actions from '../actions';
 import { connect } from 'react-redux';
 
+import { Font } from 'expo';
+
 import {NavigationActions} from 'react-navigation';
 
 class ResultComponent extends Component {
 
-    
-    constructor(props) {
-        super(props);
-        
+    async componentDidMount() {
+        await Font.loadAsync({
+            'robotoSlab-bold': require('../fonts/RobotoSlab-Bold.ttf'),
+          });
+      
+          this.setState({ fontLoaded: true });
     }
 
-    componentDidMount() {
-        console.log(this.props.navigation.state.params.prayerText)
+    constructor(props) {
+        super(props);
+        this.state = { 
+            fontLoaded: false
+        };
     }
+    
 
     backButton = () => {
         this.props.navigation.dispatch(NavigationActions.back());
@@ -63,9 +71,25 @@ class ResultComponent extends Component {
                         source={require('../img/line.jpg')}
                         style = {styles.line}
                     /> 
+
+{
+    this.state.fontLoaded ? (
                     <Text style={styles.result}> 
-                        { this.props.prayer }
+                    {
+                        this.props.prayer.isFetching && <Text>Loading</Text>
+                    }
+
+                    {
+                        this.props.prayer.data.length ? <Text>{ this.props.prayer.data[0].passage }</Text> : null
+                    }
+
+
                     </Text>
+    ) : null
+}
+
+                    
+
                     <Image 
                         source={require('../img/line.jpg')}
                         style = {styles.line}
@@ -144,7 +168,9 @@ const styles = StyleSheet.create({
         marginLeft: 20,
         marginRight: 20,
         fontSize: 25,
-        backgroundColor: 'rgba(0,0,0,0)'
+        backgroundColor: 'rgba(0,0,0,0)',
+        fontFamily: 'robotoSlab-bold',
+        color: '#006FB3'
     },
     backButton: {
         marginTop: 40
@@ -153,7 +179,9 @@ const styles = StyleSheet.create({
 
 
 function mapStateToProps(state) {
-    return { prayer: state.prayer };
+    return {
+        prayer: state.prayer
+    };
 }
 
 export default connect(mapStateToProps, actions)(ResultComponent);

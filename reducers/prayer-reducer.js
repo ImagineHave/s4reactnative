@@ -1,15 +1,27 @@
-import * as actions from '../actions';
+import { REQUEST_QUOTE_PENDING, REQUEST_QUOTE_FULFILLED } from '../actions/types';
 
-export default function(state = null, action) {
-    
-    console.log(action)
+const initialState = {
+    data: [],
+    dataFetched: false,
+    isFetching: false,
+    error: false
+  }
+
+
+export default function(state = initialState, action) {
     switch (action.type) {
-        case actions.FETCH_PRAYER:
-            console.log("fetch prayer")
-            return Object.assign({}, state, {
-                prayerLoading: true,
-                prayer: ""
-            });
+        case REQUEST_QUOTE_PENDING:
+            return {
+                ...state,
+                data: [],
+                isFetching: true
+            };
+        case REQUEST_QUOTE_FULFILLED:
+            return {
+                ...state,
+                isFetching: false,
+                data: [ action.payload.data.answer ]
+            }
         default:
             return state;
     }
