@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TouchableHighlight, StyleSheet, View, Text, Button, TextInput, Image , Keyboard, TouchableWithoutFeedback, Dimensions} from 'react-native';
+import { StyleSheet, View, Text, Button, TextInput, Image , Keyboard, TouchableWithoutFeedback, Dimensions} from 'react-native';
 
 import * as actions from '../actions';
 import { connect } from 'react-redux';
@@ -148,7 +148,7 @@ class PrayerComponent extends Component {
 
                 </Animatable.View>
 
-                <TouchableHighlight onPress={this.pray}>
+                <TouchableWithoutFeedback onPress={this.pray} style = {{  }}>
                 <Animatable.View 
                     animation="pulse" 
                     iterationCount="infinite"
@@ -160,7 +160,7 @@ class PrayerComponent extends Component {
                 </Animatable.View>
                     
                     
-                </TouchableHighlight>
+                </TouchableWithoutFeedback>
 
                 
 
