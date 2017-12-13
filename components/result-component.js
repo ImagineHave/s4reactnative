@@ -42,7 +42,10 @@ class ResultComponent extends Component {
         var images = [];
 
         for (i = 0; i < numberOfBackgroundImages; i++) {
-            images.push(<Image key={i} source={require('../img/bg.jpg')} style = { styles.backgroundImage } />)
+            images.push(<Image key={i} source={require('../img/bg2.jpg')} style = { {
+                height: windowWidth,
+                width: windowWidth
+            } } />)
         }
 
 
@@ -68,7 +71,7 @@ class ResultComponent extends Component {
                 
 
                     <Image 
-                        source={require('../img/line.jpg')}
+                        source={require('../img/line2.jpg')}
                         style = {styles.line}
                     /> 
 
@@ -80,7 +83,7 @@ class ResultComponent extends Component {
                     }
 
                     {
-                        this.props.prayer.data.length ? <Text>{ this.props.prayer.data[0].passage }</Text> : null
+                        this.props.prayer.data.length ? <Text>{ this.props.prayer.data[0].passage.toUpperCase() }</Text> : null
                     }
 
 
@@ -91,7 +94,7 @@ class ResultComponent extends Component {
                     
 
                     <Image 
-                        source={require('../img/line.jpg')}
+                        source={require('../img/line2.jpg')}
                         style = {styles.line}
                     /> 
 
@@ -167,10 +170,12 @@ const styles = StyleSheet.create({
         marginBottom:20,
         marginLeft: 20,
         marginRight: 20,
-        fontSize: 25,
+        fontSize: 30,
+        lineHeight: 30,
         backgroundColor: 'rgba(0,0,0,0)',
         fontFamily: 'robotoSlab-bold',
-        color: '#006FB3'
+        color: '#006FB3',
+        textAlign: 'justify'
     },
     backButton: {
         marginTop: 40

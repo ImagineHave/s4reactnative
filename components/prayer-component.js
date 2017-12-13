@@ -75,7 +75,10 @@ class PrayerComponent extends Component {
         var images = [];
 
         for (i = 0; i < numberOfBackgroundImages; i++) {
-            images.push(<Image key={i} source={require('../img/bg.jpg')} style = { styles.backgroundImage } />)
+            images.push(<Image key={i} source={require('../img/bg2.jpg')} style = { {
+                height: windowWidth,
+                width: windowWidth
+            } } />)
         }
 
 
@@ -132,7 +135,7 @@ class PrayerComponent extends Component {
 
                 <Image 
                     style = { styles.line } 
-                    source={require('../img/line.jpg')}
+                    source={require('../img/line2.jpg')}
                 />
 
                 <TouchableHighlight onPress={this.pray}>
