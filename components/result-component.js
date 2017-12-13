@@ -101,9 +101,19 @@ class ResultComponent extends Component {
                     /> 
 
 
-                    <Button style = { styles.backButton } onPress={this.backButton} title="Pray again">
-                   
-                </Button>
+                    <View style = {{ marginTop: 20, flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <View style = {{ marginLeft: 20, marginRight: 10, flex: 1 }}>
+                            <Button style = { styles.backButton } onPress={this.backButton} title="Pray again">
+                            </Button>
+                        </View>
+
+                        <View style = {{ marginRight: 20, marginLeft: 10, flex: 1 }}>
+                            <Button style = { styles.backButton } onPress={this.backButton} title="Share">
+                            </Button>
+                            </View>
+                    </View> 
+
+                
 
                 
 
@@ -180,7 +190,7 @@ const styles = StyleSheet.create({
         textAlign: 'justify'
     },
     backButton: {
-        marginTop: 40
+        marginTop: 40,
     }
 });
 

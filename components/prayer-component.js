@@ -38,6 +38,8 @@ class PrayerComponent extends Component {
         RNShakeEvent.removeEventListener('shake');
       }
 
+      
+
     onFocus() {
         if (this.state.text == "Enter your prayer and Shake For Jesus...") {
             this.setState({
@@ -103,7 +105,7 @@ class PrayerComponent extends Component {
 
                 </Animatable.View>
 
-                <Animatable.View animation="fadeInLeft">
+                <Animatable.View animation="fadeInLeft" ref="prayerEntry">
                 
 {
     this.state.fontLoaded ? (
