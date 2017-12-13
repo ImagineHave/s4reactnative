@@ -95,13 +95,15 @@ class PrayerComponent extends Component {
                 </View>
                 
 
-                <Animatable.View animation="slideInDown">
+                <Animatable.View animation="fadeInDown">
                 <Image
                     style = { styles.crossImg }
                     source={require('../img/cross.png')}
                 />
 
                 </Animatable.View>
+
+                <Animatable.View animation="fadeInLeft">
                 
 {
     this.state.fontLoaded ? (
@@ -141,6 +143,8 @@ class PrayerComponent extends Component {
                     style = { styles.line } 
                     source={require('../img/line2.jpg')}
                 />
+
+                </Animatable.View>
 
                 <TouchableHighlight onPress={this.pray}>
                 <Animatable.View 

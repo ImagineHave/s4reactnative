@@ -8,6 +8,8 @@ import { Font } from 'expo';
 
 import {NavigationActions} from 'react-navigation';
 
+import * as Animatable from 'react-native-animatable';
+
 class ResultComponent extends Component {
 
     async componentDidMount() {
