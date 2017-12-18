@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {
+  ScrollView,
   TouchableHighlight,
   StyleSheet,
   View,
@@ -63,51 +64,56 @@ class ResultComponent extends Component {
     }
 
     return (
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <View style={styles.container}>
-          <View style={styles.backgroundImageContainer}>{images}</View>
+      <ScrollView>
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+          <View style={styles.container}>
+            <View style={styles.backgroundImageContainer}>{images}</View>
 
-          <Image style={styles.crossImg} source={require("../img/cross.png")} />
+            <Image
+              style={styles.crossImg}
+              source={require("../img/cross.png")}
+            />
 
-          <Image source={require("../img/line2.jpg")} style={styles.line} />
+            <Image source={require("../img/line2.jpg")} style={styles.line} />
 
-          {this.state.fontLoaded ? (
-            <Text style={styles.result}>
-              {this.props.prayer.isFetching && <Text>Loading</Text>}
+            {this.state.fontLoaded ? (
+              <Text style={styles.result}>
+                {this.props.prayer.isFetching && <Text>Loading</Text>}
 
-              {this.props.prayer.data.length ? (
-                <Text>{this.props.prayer.data[0].passage.toUpperCase()}</Text>
-              ) : null}
-            </Text>
-          ) : null}
+                {this.props.prayer.data.length ? (
+                  <Text>{this.props.prayer.data[0].passage.toUpperCase()}</Text>
+                ) : null}
+              </Text>
+            ) : null}
 
-          <Image source={require("../img/line2.jpg")} style={styles.line} />
+            <Image source={require("../img/line2.jpg")} style={styles.line} />
 
-          <View
-            style={{
-              marginTop: 20,
-              flexDirection: "row",
-              justifyContent: "space-between"
-            }}
-          >
-            <View style={{ marginLeft: 20, marginRight: 10, flex: 1 }}>
-              <Button
-                style={styles.backButton}
-                onPress={this.backButton}
-                title="Pray again"
-              />
-            </View>
+            <View
+              style={{
+                marginTop: 20,
+                flexDirection: "row",
+                justifyContent: "space-between"
+              }}
+            >
+              <View style={{ marginLeft: 20, marginRight: 10, flex: 1 }}>
+                <Button
+                  style={styles.backButton}
+                  onPress={this.backButton}
+                  title="Pray again"
+                />
+              </View>
 
-            <View style={{ marginRight: 20, marginLeft: 10, flex: 1 }}>
-              <Button
-                style={styles.backButton}
-                onPress={this.backButton}
-                title="Share"
-              />
+              <View style={{ marginRight: 20, marginLeft: 10, flex: 1 }}>
+                <Button
+                  style={styles.backButton}
+                  onPress={this.backButton}
+                  title="Share"
+                />
+              </View>
             </View>
           </View>
-        </View>
-      </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback>
+      </ScrollView>
     );
   }
 }
